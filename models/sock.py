@@ -1,6 +1,7 @@
 import socket
 import json
 
+
 class MySock:
     def __init__(self, sock=None, bind_addr="localhost", bind_port=54321, listening=False):
         self.ingore_listening = listening
@@ -26,4 +27,4 @@ class MySock:
                 response = self.sock.recv(1024)
                 return response
         finally:
-            print("ok")
+            print("updated")
