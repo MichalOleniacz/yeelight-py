@@ -49,6 +49,7 @@ def start():
 
     del img, avg_color_per_row, avg_color, colors
     gc.collect()
+    # test
 
 if __name__ == "__main__":
     while True:
