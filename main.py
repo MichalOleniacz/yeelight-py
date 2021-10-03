@@ -31,29 +31,29 @@ def rgb_to_hex(rgb):
     return (red << 16) + (green << 8) + blue
 
 
-def start_on_thread():
-    # i = 0
-    while True:
-        img = Image.frombytes('RGB', (w, h), sct.grab(monitor).rgb)
-        # myimg = cv2.imread('image.jpg')
-        avg_color_per_row = numpy.average(img, axis=0)
-        avg_color = numpy.average(avg_color_per_row, axis=0)
+def start():
+    img = Image.frombytes('RGB', (w, h), sct.grab(monitor).rgb)
+    # myimg = cv2.imread('image.jpg')
+    avg_color_per_row = numpy.average(img, axis=0)
+    avg_color = numpy.average(avg_color_per_row, axis=0)
 
-        colors = []
+    colors = []
 
-        for item in avg_color:
-            colors.append(math.floor(item))
+    for item in avg_color:
+        colors.append(math.floor(item))
 
-        if numpy.sum(colors) > 25:
-            print("Update: ", rgb_to_hex((colors[0], colors[1], colors[2])))
-            strip.set_rgb_int(
-                int(rgb_to_hex((colors[0], colors[1], colors[2]))))
+    if numpy.sum(colors) > 25:
+        print("Update: ", rgb_to_hex((colors[0], colors[1], colors[2])))
+        strip.set_rgb_int(
+            int(rgb_to_hex((colors[0], colors[1], colors[2]))))
 
-        del img, avg_color_per_row, avg_color, colors
-        gc.collect()
+    del img, avg_color_per_row, avg_color, colors
+    gc.collect()
 
 if __name__ == "__main__":
-    threading.Timer(0.4, start_on_thread).start()
+    while True:
+        time.sleep(0.5)
+        start()
     # val = randrange(16777214)
     # print("setting light to:", hex(val))
     # strip.set_rgb_int(val)
