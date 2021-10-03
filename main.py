@@ -6,6 +6,7 @@ from models.sock import MySock
 import numpy
 from mss import mss
 from PIL import Image
+import gc
 import math
 
 # Definitions
@@ -48,6 +49,8 @@ def start_on_thread():
             strip.set_rgb_int(
                 int(rgb_to_hex((colors[0], colors[1], colors[2]))))
 
+        del img, avg_color_per_row, avg_color, colors
+        gc.collect()
 
 if __name__ == "__main__":
     threading.Timer(0.4, start_on_thread).start()
